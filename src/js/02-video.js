@@ -10,14 +10,6 @@ player.on(
   }, 1000)
 );
 
-player.on('timeupdate', function (data) {
-  console.log(data);
-});
-
-// player.on('timeupdate', function (data) {
-//   localStorage.setItem('videoplayer-current-time', data.seconds);
-// });
-
 player
   .setCurrentTime(localStorage.getItem('videoplayer-current-time'))
   .then(function (seconds) {});
