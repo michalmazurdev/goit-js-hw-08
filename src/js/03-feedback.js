@@ -14,13 +14,6 @@ formEl.addEventListener(
   }, 500)
 );
 
-// formEl.addEventListener('input', event => {
-//   localStorage.setItem(
-//     'feedback-form-state',
-//     JSON.stringify({ email: emlInputEl.value, message: msgInputEl.value })
-//   );
-// });
-
 window.addEventListener('load', () => {
   if (localStorage.getItem('feedback-form-state') !== null) {
     emlInputEl.value = dataFromStorage.email;
@@ -31,15 +24,11 @@ window.addEventListener('load', () => {
   }
 });
 
-// formEl.addEventListener('keyup', event => {
-//   console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
-// });
-
 formEl.addEventListener('submit', event => {
   event.preventDefault();
   console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
   console.log(dataFromStorage);
-  // dlaczego drugi console.log nie dziala??
+  // dlaczego drugi console.log daje null???
   emlInputEl.value = '';
   msgInputEl.value = '';
   localStorage.clear();
