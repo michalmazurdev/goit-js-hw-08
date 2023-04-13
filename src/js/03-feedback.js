@@ -28,7 +28,7 @@ formEl.addEventListener('submit', event => {
   event.preventDefault();
   console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
   console.log(dataFromStorage);
-  // dlaczego drugi console.log daje null???
+  // Dawid, dlaczego drugi console.log daje null?
   emlInputEl.value = '';
   msgInputEl.value = '';
   localStorage.clear();
