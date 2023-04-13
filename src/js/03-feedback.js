@@ -3,38 +3,38 @@ import throttle from 'lodash.throttle';
 const formEl = document.querySelector('.feedback-form');
 const emlInputEl = document.querySelector('input');
 const msgInputEl = document.querySelector('textarea');
-const submitBtnEl = document.querySelector('button');
+const dataFromStorage = JSON.parse(localStorage.getItem('feedback-form-state'));
+
 formEl.addEventListener('input', event => {
-  const {
-    elements: { email, message },
-  } = event.currentTarget;
   localStorage.setItem(
     'feedback-form-state',
-    JSON.stringify({ email: email.value, message: message.value })
+    JSON.stringify({ email: emlInputEl.value, message: msgInputEl.value })
   );
 });
 
 window.addEventListener('load', () => {
-  emlInputEl.value = JSON.parse(
-    localStorage.getItem('feedback-form-state')
-  ).email;
-  msgInputEl.value = JSON.parse(
-    localStorage.getItem('feedback-form-state').message
-  );
+  if (localStorage.getItem('feedback-form-state') !== null) {
+    emlInputEl.value = dataFromStorage.email;
+    msgInputEl.value = dataFromStorage.message;
+  } else {
+    emlInputEl.value = '';
+    msgInputEl.value = '';
+  }
 });
 
-// window.addEventListener('load', () => {
-//   if (localStorage.getItem('feedback-form-state') == null) {
-//     return;
-//   } else {
-//     emlInputEl.value = JSON.parse(
-//       localStorage.getItem('feedback-form-state')
-//     ).email;
-//     msgInputEl.value = JSON.parse(
-//       localStorage.getItem('feedback-form-state').message
-//     );
-//   }
+// formEl.addEventListener('keyup', event => {
+//   console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
 // });
+
+formEl.addEventListener('submit', event => {
+  event.preventDefault();
+  console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
+  console.log(dataFromStorage);
+  // dlaczego drugi console.log nie dziala??
+  emlInputEl.value = '';
+  msgInputEl.value = '';
+  localStorage.clear();
+});
 
 // Wykonuj to zadanie w plikach 03-feedback.html i 03-feedback.js. Rozbij je na kilka pod-zadań:
 
@@ -45,8 +45,12 @@ window.addEventListener('load', () => {
 // Podczas przeładowywania strony sprawdzaj stan storage i jeśli są tam
 // zapisane dane, wypełniaj nimi pola formularza.W przeciwnym wypadku
 // pola powinny być puste.
-// Po wysłaniu formularza wyczyść storage i pola formularza,
-// a także wyloguj obiekt z polami email, message i ich aktualnymi wartościami do konsoli.
+
+// Po wysłaniu formularza
+// wyczyść storage i pola formularza,
+// a także
+// wyloguj obiekt z polami email, message i ich aktualnymi wartościami do konsoli.
+
 // Zrób tak, aby storage aktualizował się nie częściej
 // niż raz na 500 milisekund.Aby to zrobić, użyj metody
 //  biblioteki lodash.throttle(dodaj ją do projektu).
